@@ -31,6 +31,7 @@ dependencies {
   annotationProcessor project(':deeplinkdispatch-processor')
   implementation project(':sample-library')
   implementation deps.appCompat
+  implementation deps.localBroadcastManager
 
   testImplementation deps.roboelectric
   testImplementation deps.roboelectricShadowSupport
