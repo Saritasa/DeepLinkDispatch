@@ -4,7 +4,6 @@ sourceCompatibility = 1.7
 
 apply plugin: 'checkstyle'
 
-apply from: '../gradle-maven-push.gradle'
 
 sourceSets {
   test {
@@ -38,3 +37,5 @@ checkstyle {
   showViolations true
   configProperties = ['checkstyle.cache.file': rootProject.file('build/checkstyle.cache')]
 }
+
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'

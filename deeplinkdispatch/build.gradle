@@ -4,8 +4,6 @@ sourceCompatibility = 1.7
 
 apply plugin: 'checkstyle'
 
-apply from: '../gradle-maven-push.gradle'
-
 
 dependencies {
   api project(':deeplinkdispatch-base')
@@ -33,3 +31,5 @@ android {
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
   }
 }
+
+apply from: 'https://raw.github.com/chrisbanes/gradle-mvn-push/master/gradle-mvn-push.gradle'
