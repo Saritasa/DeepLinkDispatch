@@ -5,7 +5,7 @@ def versions = [
 
 ext.versions = versions
 ext.androidConfig = [
-    agpVersion       : '3.5.1',
+    agpVersion       : '3.2.0',
     compileSdkVersion: 29,
     buildToolsVersion: '29.0.2',
     minSdkVersion    : 16,
@@ -21,7 +21,7 @@ ext.deps = [
     kotlinGradlePlugin       : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlinVersion",
     javaPoet                 : 'com.squareup:javapoet:1.11.1',
     jsr305                   : 'com.google.code.findbugs:jsr305:3.0.2',
-    okio                     : 'com.squareup.okio:okio:2.4.1',
+    okio                     : 'com.squareup.okio:okio:1.13.0',
 
     // Testing
     junit                    : 'junit:junit:4.12',

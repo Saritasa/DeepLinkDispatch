@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.airbnb.deeplinkdispatch.DeepLink;
 
-@DeepLink("http://example.com/library")
+@LibraryDeepLink("/library")
 public class LibraryActivity extends AppCompatActivity {
   @SuppressLint("RestrictedApi")
   @Override protected void onCreate(@Nullable Bundle savedInstanceState) {

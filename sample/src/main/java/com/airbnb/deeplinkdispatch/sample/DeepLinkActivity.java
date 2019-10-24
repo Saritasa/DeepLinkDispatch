@@ -12,7 +12,7 @@ public class DeepLinkActivity extends Activity {
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     DeepLinkDelegate deepLinkDelegate = new DeepLinkDelegate(
-        new SampleModuleLoader(), new LibraryDeepLinkModuleLoader());
+            new SampleModuleLoader(), new LibraryDeepLinkModuleLoader("library://dld", "abc://dld"));
     deepLinkDelegate.dispatchFrom(this);
     finish();
   }

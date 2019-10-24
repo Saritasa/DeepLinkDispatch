@@ -33,8 +33,8 @@ public final class DeepLinkEntry {
   private final Class<?> activityClass;
   private final String method;
   private final Set<String> parameters;
-  private final Pattern regex;
-  private final String uriTemplate;
+  private Pattern regex;
+  private String uriTemplate;
 
   public enum Type {
     CLASS,
@@ -63,6 +63,13 @@ public final class DeepLinkEntry {
 
   public String getMethod() {
     return method;
+  }
+
+  public void setUriTemplate(final String uriTemplate){
+    this.uriTemplate = uriTemplate;
+    DeepLinkUri parsedUri = DeepLinkUri.parse(uriTemplate);
+    String schemeHostAndPath = schemeHostAndPath(parsedUri);
+    this.regex = Pattern.compile(schemeHostAndPath.replaceAll(PARAM_REGEX, PARAM_VALUE) + "$");
   }
 
   /**

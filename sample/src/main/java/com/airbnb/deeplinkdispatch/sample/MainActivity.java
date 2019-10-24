@@ -15,11 +15,13 @@
  */
 package com.airbnb.deeplinkdispatch.sample;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.airbnb.deeplinkdispatch.DeepLink;
@@ -115,7 +117,20 @@ public class MainActivity extends AppCompatActivity {
     return new Intent(context, MainActivity.class).setAction(ACTION_DEEP_LINK_COMPLEX);
   }
 
-  private void showToast(String message) {
+    public void navigateToLibrary(View view){
+      Intent intent = new Intent(Intent.ACTION_VIEW)
+              .setData(Uri.parse("abc://dld/library"))
+              .addCategory(Intent.CATEGORY_DEFAULT)
+              .addCategory(Intent.CATEGORY_BROWSABLE);
+
+      try {
+        startActivity(intent);
+      } catch (ActivityNotFoundException aEx) {
+        Toast.makeText(this, "Activity not found", Toast.LENGTH_SHORT).show();
+      }
+    }
+
+    private void showToast(String message) {
     Toast.makeText(this, "Deep Link: " + message, Toast.LENGTH_SHORT).show();
   }
 }

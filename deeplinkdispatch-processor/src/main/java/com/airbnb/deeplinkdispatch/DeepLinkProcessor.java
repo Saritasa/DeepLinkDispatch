@@ -289,12 +289,34 @@ public class DeepLinkProcessor extends AbstractProcessor {
         .initializer(initializer.unindent().add("))").build())
         .build();
 
+    MethodSpec loaderConstructor = MethodSpec.constructorBuilder()
+            .addModifiers(Modifier.PUBLIC)
+            .addParameter(String.class, "oldPrefix")
+            .addStatement("this.$N = $N", "oldPrefix", "oldPrefix")
+            .addParameter(String.class, "newPrefix")
+            .addStatement("this.$N = $N", "newPrefix", "newPrefix")
+            .build();
+
+      FieldSpec oldPrefix = FieldSpec.builder(String.class, "oldPrefix")
+              .addModifiers(Modifier.PRIVATE)
+              .initializer("$S", "")
+              .build();
+
+    FieldSpec newPrefix = FieldSpec.builder(String.class, "newPrefix")
+            .addModifiers(Modifier.PRIVATE)
+            .initializer("$S", "")
+            .build();
+
     MethodSpec parseMethod = MethodSpec.methodBuilder("parseUri")
         .addModifiers(Modifier.PUBLIC)
         .addAnnotation(AnnotationSpec.builder(Override.class).build())
         .addParameter(String.class, "uri")
         .returns(DeepLinkEntry.class)
         .beginControlFlow("for (DeepLinkEntry entry : REGISTRY)")
+        .beginControlFlow("if (!oldPrefix.isEmpty() && !newPrefix.isEmpty())")
+        .addStatement("String newTemplate = entry.getUriTemplate().replace(oldPrefix, newPrefix)")
+        .addStatement("entry.setUriTemplate(newTemplate)")
+        .endControlFlow()
         .beginControlFlow("if (entry.matches(uri))")
         .addStatement("return entry")
         .endControlFlow()
@@ -306,6 +328,10 @@ public class DeepLinkProcessor extends AbstractProcessor {
         .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
         .addSuperinterface(ClassName.get(Parser.class))
         .addField(registry)
+        .addField(oldPrefix)
+        .addField(newPrefix)
+        .addMethod(MethodSpec.constructorBuilder().addModifiers(Modifier.PUBLIC).build())
+        .addMethod(loaderConstructor)
         .addMethod(parseMethod)
         .build();
 
